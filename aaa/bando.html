@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khám phá Thành phố Huế</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#eef3ff;
+}
+
+  .menu{
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:15px 20px;
+    margin:0;
+}
+
+ .search-box{
+    position:relative;
+}
+
+#suggestions{
+    position:absolute;
+    top:100%;      
+    left:0;
+    margin-top:5px;  
+    width:100%;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    display:none;
+    z-index:1000;
+}
+.search-item{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+}
+
+ 
+.search-box input{
+    width:160px;
+    height:32px;
+    padding:0 12px;
+    border-radius:16px;
+    border:2px solid #0a3d91;
+    outline:none;
+    font-size:14px;
+}
+
+ 
+
+.suggestion-item{
+    padding:8px 10px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.suggestion-item:hover{
+    background:#eef3ff;
+}
+header{
+    height:220px;
+    background-size:cover;
+    background-position:center;
+    animation: headerSlide 10s infinite;
+}
+
+@keyframes headerSlide{
+    0%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("abs.jpg");
+    }
+    50%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("hue2.jpg");
+    }
+    100%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("hue1.jpg");
+    }
+}
+
+.top_bar{
+    max-width:1200px;
+    height:220px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo img{
+    height:85px;
+}
+
+.site_name{
+    color:white;
+    font-size:32px;
+    text-align: center;
+    font-weight:600;
+}
+
+.site_name a{
+    color:white;
+    text-decoration:none;
+}
+
+ 
+.sidebar{
+    width:100%;
+    background:white;
+    border-bottom:3px solid #0a3d91;
+}
+
+.sidebar ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    padding:15px 0;
+    margin:0;
+}
+
+.sidebar a{
+    text-decoration:none;
+    font-weight:600;
+    color:#0a3d91;
+    font-size:18px;
+    padding:6px 12px;
+    border-radius:4px;
+    transition:0.2s;
+}
+
+.sidebar a:hover{
+    background:#0a3d91;
+    color:white;
+}
+
+ 
+.hue-section{
+    max-width:1100px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:36px;
+    color:#0a3d91;
+    margin-bottom:40px;
+    font-weight:bold;
+}
+
+ 
+.resource-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap:30px;
+}
+
+.resource-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.resource-card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.resource-card h3{
+    margin:16px;
+    color:#0a3d91;
+}
+
+.resource-card p{
+    margin:0 16px 20px;
+    color:#444;
+    line-height:1.5;
+}
+
+.resource-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+ 
+footer{
+    background:#0b1c3d;
+    color:#ddd;
+    text-align:center;
+    padding:20px 10px;
+    margin-top:60px;
+}
+
+footer p{
+    margin:6px 0;
+}
+
+ 
+@media(max-width:600px){
+    .top_bar{
+        padding:0 20px;
+    }
+    .site_name{
+        font-size:20px;
+        text-align:right;
+    }
+}
+.intro-hue{
+    max-width:1100px;
+    margin:70px auto;
+    padding:0 20px;
+}
+
+.intro-container{
+    display:flex;
+    align-items:center;
+    gap:50px;
+    background:white;
+    padding:40px;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.intro-text{
+    flex:1;
+}
+
+.intro-text h2{
+    font-size:32px;
+    color:#0a3d91;
+    margin-bottom:20px;
+}
+
+.intro-text p{
+    font-size:18px;
+    line-height:1.8;
+    color:#444;
+    margin-bottom:16px;
+}
+
+.intro-image{
+    flex:1;
+}
+.section-title{
+    text-align: center;
+}   
+.intro-image img{
+    width:100%;
+    border-radius:12px;
+    object-fit:cover;
+}
+
+.map-section{
+    max-width:1000px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.map-section h2{
+    text-align:center;
+    font-size:32px;
+    color:#0a3d91;
+    margin-bottom:30px;
+}
+
+.map-container{
+    text-align:center;
+}
+
+.map-container img{
+    width:100%;
+    max-width:800px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+.map-section{
+    max-width:1000px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.map-section h2{
+    text-align:center;
+    font-size:32px;
+    color:#0a3d91;
+    margin-bottom:30px;
+}
+
+.map-container img{
+    width:100%;
+    max-width:800px;
+    display:block;
+    margin:auto;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.ward-title{
+    margin-top:50px;
+    text-align:center;
+    color:#0a3d91;
+}
+
+.ward-list{
+    text-align:center;
+    margin:20px 0;
+}
+
+.ward-list button{
+    margin:8px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#0a3d91;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.ward-list button:hover{
+    background:#062c6f;
+}
+
+.ward-map{
+    display:none;
+    text-align:center;
+    margin-top:20px;
+}
+
+.ward-map img{
+    width:100%;
+    max-width:700px;
+    border-radius:10px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+.map-content{
+    margin-top:30px;
+    font-size:18px;
+    line-height:1.7;
+    color:#444;
+}
+@media(max-width:900px){
+    .intro-container{
+        flex-direction:column;
+    }
+}
+.book-wrapper{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top:40px;
+}
+
+.book{
+    width:800px;
+    height:500px;
+    position:relative;
+    perspective:2500px;
+}
+
+.page{
+    width:100%;
+    height:100%;
+    position:absolute;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    transform-origin:left;
+    transition:transform 1s;
+    backface-visibility:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.page img{
+    max-width:90%;
+    max-height:70%;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.page h3{
+    margin-top:20px;
+    color:#0a3d91;
+}
+
+.page.flipped{
+    transform:rotateY(-180deg);
+}
+
+.book-controls{
+    margin-top:25px;
+}
+
+.book-controls button{
+    padding:10px 25px;
+    margin:0 10px;
+    border:none;
+    background:#0a3d91;
+    color:white;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.book-controls button:hover{
+    background:#062c6f;
+}
+
+@media(max-width:900px){
+    .book{
+        width:95%;
+        height:420px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="top_bar">
+        <div class="site_name">
+            <a href="#">Khám phá Thành phố Huế</a>
+        </div>
+    </div>
+</header>
+
+<aside class="sidebar">
+    <ul>
+        <li><a href="position.html">Vị trí</a></li>
+        <li><a href="introduction.html">Giới thiệu</a></li> <li><a href="code.html">Khám phá</a></li>
+        
+        <li><a href="tourism.html">Lịch sử</a></li>
+        <li><a href="resource.html">Tài nguyên</a></li>
+        <li><div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm toàn website..." autocomplete="off">
+    <div id="suggestions"></div>
+</div></li>   </ul>
+    </ul>
+</aside>
+ 
+   
+<section class="map-section">
+    <h2>Bản đồ Thành phố Huế</h2>
+
+    <div class="map-container">
+        <img src="bando/ban-do-don-vi-hanh-chinh-thanh-pho-hue_t03p8j14d6.jpg" alt="Bản đồ Thành phố Huế">
+    </div>
+    <h3 class="ward-title">Các phường/xã</h3>
+
+<div class="ward-list">
+
+<button onclick="showWard('phongdien')">Phường Phong Điền</button>
+<button onclick="showWard('phongthai')">Phường Phong Thái</button>
+<button onclick="showWard('phongdinh')">Phường Phong Dinh</button>
+<button onclick="showWard('phongphu')">Phường Phong Phú</button>
+<button onclick="showWard('phongquang')">Phường Phong Quảng</button>
+
+<button onclick="showWard('huongtra')">Phường Hương Trà</button>
+<button onclick="showWard('kimtra')">Phường Kim Trà</button>
+<button onclick="showWard('kimlong')">Phường Kim Long</button>
+<button onclick="showWard('huongan')">Phường Hương An</button>
+<button onclick="showWard('phuxuan')">Phường Phú Xuân</button>
+
+<button onclick="showWard('thuanan')">Phường Thuận An</button>
+<button onclick="showWard('hoachau')">Phường Hóa Châu</button>
+<button onclick="showWard('mythuong')">Phường Mỹ Thượng</button>
+<button onclick="showWard('vyda')">Phường Vỹ Dạ</button>
+<button onclick="showWard('thuanhoa')">Phường Thuận Hóa</button>
+
+<button onclick="showWard('ancuu')">Phường An Cựu</button>
+<button onclick="showWard('thuyxuan')">Phường Thủy Xuân</button>
+<button onclick="showWard('thanhthuy')">Phường Thanh Thủy</button>
+<button onclick="showWard('huongthuy')">Phường Hương Thủy</button>
+<button onclick="showWard('phubai')">Phường Phú Bài</button>
+
+<button onclick="showWard('duongno')">Phường Dương Nỗ</button>
+
+<button onclick="showWard('dandien')">Xã Đan Điền</button>
+<button onclick="showWard('quangdien')">Xã Quảng Điền</button>
+<button onclick="showWard('binhdien')">Xã Bình Điền</button>
+<button onclick="showWard('phuvinh')">Xã Phú Vinh</button>
+<button onclick="showWard('phuho')">Xã Phú Hồ</button>
+
+<button onclick="showWard('phuvang')">Xã Phú Vang</button>
+<button onclick="showWard('vinhloc')">Xã Vinh Lộc</button>
+<button onclick="showWard('hungloc')">Xã Hưng Lộc</button>
+<button onclick="showWard('locan')">Xã Lộc An</button>
+<button onclick="showWard('phuloc')">Xã Phú Lộc</button>
+
+<button onclick="showWard('chanmaylangco')">Xã Chân Mây - Lăng Cô</button>
+<button onclick="showWard('longquang')">Xã Long Quảng</button>
+<button onclick="showWard('namdong')">Xã Nam Đông</button>
+<button onclick="showWard('khetre')">Xã Khe Tre</button>
+
+<button onclick="showWard('aluoi1')">Xã A Lưới 1</button>
+<button onclick="showWard('aluoi2')">Xã A Lưới 2</button>
+<button onclick="showWard('aluoi3')">Xã A Lưới 3</button>
+<button onclick="showWard('aluoi4')">Xã A Lưới 4</button>
+<button onclick="showWard('aluoi5')">Xã A Lưới 5</button>
+
+</div>
+
+    <div class="ward-maps">
+
+<div id="phongdien" class="ward-map"><img src="bando/phongdien.png" alt="Phường Phong Điền"></div>
+<div id="phongthai" class="ward-map"><img src="bando/phongthai.png" alt="Phường Phong Thái"></div>
+<div id="phongdinh" class="ward-map"><img src="bando/phongdinh.png" alt="Phường Phong Dinh"></div>
+<div id="phongphu" class="ward-map"><img src="bando/phongphu.png" alt="Phường Phong Phú"></div>
+<div id="phongquang" class="ward-map"><img src="bando/phongquang.png" alt="Phường Phong Quảng"></div>
+
+<div id="huongtra" class="ward-map"><img src="bando/huongtra.png" alt="Phường Hương Trà"></div>
+<div id="kimtra" class="ward-map"><img src="bando/kimtra.png" alt="Phường Kim Trà"></div>
+<div id="kimlong" class="ward-map"><img src="bando/kimlong.png" alt="Phường Kim Long"></div>
+<div id="huongan" class="ward-map"><img src="bando/huongan.png" alt="Phường Hương An"></div>
+<div id="phuxuan" class="ward-map"><img src="bando/phuxuan.png" alt="Phường Phú Xuân"></div>
+
+<div id="thuanan" class="ward-map"><img src="bando/thuanan.png" alt="Phường Thuận An"></div>
+<div id="hoachau" class="ward-map"><img src="bando/hoachau.png" alt="Phường Hóa Châu"></div>
+<div id="mythuong" class="ward-map"><img src="bando/mythuong.png" alt="Phường Mỹ Thượng"></div>
+<div id="vyda" class="ward-map"><img src="bando/vida.png" alt="Phường Vỹ Dạ"></div>
+<div id="thuanhoa" class="ward-map"><img src="bando/thuanhoa.png" alt="Phường Thuận Hóa"></div>
+
+<div id="ancuu" class="ward-map"><img src="bando/ancuu.png" alt="Phường An Cựu"></div>
+<div id="thuyxuan" class="ward-map"><img src="bando/thuyxuan.png" alt="Phường Thủy Xuân"></div>
+<div id="thanhthuy" class="ward-map"><img src="bando/thanhthuy.png" alt="Phường Thanh Thủy"></div>
+<div id="huongthuy" class="ward-map"><img src="bando/huongthuy.png" alt="Phường Hương Thủy"></div>
+<div id="phubai" class="ward-map"><img src="bando/phubai.png" alt="Phường Phú Bài"></div>
+
+<div id="duongno" class="ward-map"><img src="bando/duongno.png" alt="Phường Dương Nỗ"></div>
+
+<div id="dandien" class="ward-map"><img src="bando/dandien.png" alt="Xã Đan Điền"></div>
+<div id="quangdien" class="ward-map"><img src="bando/quangdien.png" alt="Xã Quảng Điền"></div>
+<div id="binhdien" class="ward-map"><img src="bando/binhdien.png" alt="Xã Bình Điền"></div>
+<div id="phuvinh" class="ward-map"><img src="bando/phuvinh.png" alt="Xã Phú Vinh"></div>
+<div id="phuho" class="ward-map"><img src="bando/phuho.png" alt="Xã Phú Hồ"></div>
+
+<div id="phuvang" class="ward-map"><img src="bando/phuvang.png" alt="Xã Phú Vang"></div>
+<div id="vinhloc" class="ward-map"><img src="bando/vinhloc.png" alt="Xã Vinh Lộc"></div>
+<div id="hungloc" class="ward-map"><img src="bando/hungloc.png" alt="Xã Hưng Lộc"></div>
+<div id="locan" class="ward-map"><img src="bando/locan.png" alt="Xã Lộc An"></div>
+<div id="phuloc" class="ward-map"><img src="bando/phuloc.png" alt="Xã Phú Lộc"></div>
+
+<div id="chanmaylangco" class="ward-map"><img src="bando/chanmaylangco.png" alt="Xã Chân Mây - Lăng Cô"></div>
+<div id="longquang" class="ward-map"><img src="bando/longquang.png" alt="Xã Long Quảng"></div>
+<div id="namdong" class="ward-map"><img src="bando/namdong.png" alt="Xã Nam Đông"></div>
+<div id="khetre" class="ward-map"><img src="bando/khetre.png" alt="Xã Khe Tre"></div>
+
+<div id="aluoi1" class="ward-map"><img src="bando/aluoi1.png" alt="Xã A Lưới 1"></div>
+<div id="aluoi2" class="ward-map"><img src="bando/aluoi2.png" alt="Xã A Lưới 2"></div>
+<div id="aluoi3" class="ward-map"><img src="bando/aluoi3.png" alt="Xã A Lưới 3"></div>
+<div id="aluoi4" class="ward-map"><img src="bando/aluoi4.png" alt="Xã A Lưới 4"></div>
+<div id="aluoi5" class="ward-map"><img src="bando/aluoi5.png" alt="Xã A Lưới 5"></div>
+
+    </div>
+</section>
+ 
+
+<footer>
+    <p>© 2026 Khám phá Thành phố Huế</p>
+    <p>Đơn vị: Trường Tiểu học Thanh Toàn</p>
+    <p>Chế Nguyễn Minh Khuê - lớp 5/2; Trần Đặng Châu Anh - lớp 1/1</p>
+    <!-- <p></p> -->
+    <p>Giáo viên hướng dẫn: Lương Thị Phương Linh - Huỳnh Thị Bích Mai</p>
+</footer>
+<script>
+function showWard(id){
+    const maps = document.querySelectorAll('.ward-map');
+    maps.forEach(map => map.style.display = 'none');
+
+    document.getElementById(id).style.display = 'block';
+}
+</script><script src="search.js"></script>
+</body>
+</html>

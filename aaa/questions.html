@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khám phá Thành phố Huế</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#eef3ff;
+}
+ .menu{
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:15px 20px;
+    margin:0;
+}
+
+ .search-box{
+    position:relative;
+}
+
+#suggestions{
+    position:absolute;
+    top:100%;      
+    left:0;
+    margin-top:5px;  
+    width:100%;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    display:none;
+    z-index:1000;
+}
+.search-item{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+}
+
+ 
+.search-box input{
+    width:160px;
+    height:32px;
+    padding:0 12px;
+    border-radius:16px;
+    border:2px solid #0a3d91;
+    outline:none;
+    font-size:14px;
+}
+
+ 
+
+.suggestion-item{
+    padding:8px 10px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.suggestion-item:hover{
+    background:#eef3ff;
+}
+header{
+    height:220px;
+    background-size:cover;
+    background-position:center;
+    animation: headerSlide 10s infinite;
+}
+
+@keyframes headerSlide{
+    0%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("hue1.jpg");
+    }
+    50%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("hue2.jpg");
+    }
+    100%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("abs.jpg");
+    }
+}
+
+.top_bar{
+    max-width:1200px;
+    height:220px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.site_name{
+    color:white;
+    font-size:32px;
+    font-weight:600;
+}
+
+.site_name a{
+    color:white;
+    text-decoration:none;
+}
+
+/* ===== MENU ===== */
+.sidebar{
+    width:100%;
+    background:white;
+    border-bottom:3px solid #0a3d91;
+}
+
+.sidebar ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    padding:15px 0;
+    margin:0;
+}
+
+.sidebar a{
+    text-decoration:none;
+    font-weight:600;
+    color:#0a3d91;
+    font-size:18px;
+    padding:6px 12px;
+    border-radius:4px;
+    transition:0.2s;
+}
+
+.sidebar a:hover{
+    background:#0a3d91;
+    color:white;
+}
+
+/* ===== SECTION ===== */
+.hue-section{
+    max-width:1200px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:36px;
+    color:#0a3d91;
+    margin-bottom:40px;
+    font-weight:bold;
+}
+
+/* ===== GRID 5 Ô 1 DÒNG ===== */
+.resource-grid{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap:30px;
+}
+
+/* ===== Ô VUÔNG ===== */
+.square-card{
+    text-decoration:none;
+    color:#0a3d91;
+    text-align:center;
+    transition:0.3s;
+}
+
+.square-img{
+    aspect-ratio:1/1;
+    overflow:hidden;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.square-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+.square-card p{
+    margin-top:12px;
+    font-size:18px;
+    font-weight:600;
+}
+
+/* Hover */
+.square-card:hover .square-img{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.square-card:hover img{
+    transform:scale(1.1);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+    .resource-grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media(max-width:600px){
+    .resource-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .site_name{
+        font-size:20px;
+    }
+}
+
+ .a4-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);  
+    max-width:1100px;
+    margin:auto;
+    gap:40px;
+}
+
+.a4-card{
+    text-decoration:none;
+}
+
+.a4-img{
+    aspect-ratio:1/1.4;   /* tỉ lệ A4 đứng */
+    overflow:hidden;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+.quiz-box{
+max-width:800px;
+margin:auto;
+text-align:center;
+}
+
+.quiz-question{
+font-size:22px;
+margin-bottom:25px;
+font-weight:bold;
+}
+
+.quiz-answers{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.quiz-btn{
+padding:16px;
+font-size:18px;
+border:none;
+border-radius:10px;
+background:#5DADE2;
+color:white;
+cursor:pointer;
+transition:0.2s;
+}
+
+.quiz-btn:hover{
+transform:scale(1.05);
+}
+
+.correct{
+background:#2ecc71 !important;
+}
+
+.wrong{
+background:#e74c3c !important;
+}
+
+.quiz-info{
+margin-top:20px;
+padding:15px;
+background:white;
+border-radius:10px;
+display:none;
+}
+
+.quiz-next{
+margin-top:20px;
+padding:10px 20px;
+font-size:16px;
+background:#ff9800;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+display:none;
+}
+
+#fireworks{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+.a4-img img{
+    width:1200px;
+    height:100%;
+    object-fit:cover;
+    transition:0.4s;
+}
+.quiz-img{
+width:350px;
+max-width:100%;
+border-radius:12px;
+margin:12px auto;
+display:block;
+box-shadow:0 6px 18px rgba(0,0,0,0.25);
+}
+
+.quiz-result button{
+margin-top:20px;
+padding:12px 25px;
+font-size:18px;
+background:#ff9800;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+.quiz-result{
+display:none;
+text-align:center;
+background:white;
+padding:40px;
+margin-top:30px;
+border-radius:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.2);
+}
+
+.quiz-result h2{
+color:#0a3d91;
+margin-bottom:10px;
+}
+
+.quiz-result p{
+font-size:24px;
+font-weight:bold;
+color:#e67e22;
+}
+.a4-card:hover .a4-img{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+.a4-card:hover img{
+    transform:scale(1.1);
+}.restart-btn{
+margin-top:25px;
+padding:12px 28px;
+font-size:18px;
+background:#ff9800;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+transition:0.2s;
+}
+
+.restart-btn:hover{
+transform:scale(1.05);
+background:#e68900;
+}
+footer{
+    background:#0b1c3d;
+    color:#ddd;
+    text-align:center;
+    padding:20px 10px;
+    margin-top:60px;
+}
+
+footer p{
+    margin:6px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="top_bar">
+        <div class="site_name">
+            <a href="#">Khám phá Thành phố Huế</a>
+        </div>
+    </div>
+</header>
+
+<aside class="sidebar">
+    <ul>
+        <li><a href="position.html">Vị trí</a></li>
+        <li><a href="introduction.html">Giới thiệu</a></li> <li><a href="code.html">Khám phá</a></li>
+        
+        <li><a href="tourism.html">Lịch sử</a></li>
+<li><a href="resource.html">Tài nguyên</a></li>
+        <li><div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm toàn website..." autocomplete="off">
+    <div id="suggestions"></div>
+</div></li>   </ul>
+</aside>
+
+<section class="hue-section">
+ <h2 class="section-title">Trò chơi khám phá Huế</h2>
+
+<div class="quiz-box">
+
+<div id="question" class="quiz-question"></div>
+
+<div class="quiz-answers">
+<button class="quiz-btn" onclick="checkAnswer(0)" id="btn0"></button>
+<button class="quiz-btn" onclick="checkAnswer(1)" id="btn1"></button>
+<button class="quiz-btn" onclick="checkAnswer(2)" id="btn2"></button>
+<button class="quiz-btn" onclick="checkAnswer(3)" id="btn3"></button>
+</div>
+
+<div id="quiz-info" class="quiz-info"></div>
+
+<button id="nextBtn" class="quiz-next" onclick="nextQuestion()">Câu tiếp theo</button>
+
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<audio id="soundCorrect" src="correct.mp3"></audio>
+<audio id="soundWrong" src="wrong.mp3"></audio>
+ <div id="quiz-result" class="quiz-result">
+<h2>Hoàn thành trò chơi!</h2>
+<p id="score-text"></p>
+<button onclick="restartQuiz()" class="restart-btn">Chơi lại</button>
+</div>
+</section>
+
+<footer>
+    <p>© 2026 Khám phá Thành phố Huế</p>
+    <p>Đơn vị: Trường Tiểu học Thanh Toàn</p>
+<p>Chế Nguyễn Minh Khuê - lớp 5/2; Trần Đặng Châu Anh - lớp 1/1</p>
+    <p>Giáo viên hướng dẫn: Lương Thị Phương Linh - Huỳnh Thị Bích Mai</p>
+</footer>
+<script>
+
+let score = 0
+let current = 0
+let answered = false
+
+let questions = [
+
+{
+q:"Ngôi chùa nổi tiếng nằm bên sông Hương và có tháp Phước Duyên cao 7 tầng là chùa nào?",
+a:["Chùa Một Cột","Chùa Thiên Mụ","Chùa Bái Đính","Chùa Tam Chúc"],
+correct:1,
+info:"<img src='cauhoi/thienmu.jpg' class='quiz-img'><br>Chùa Thiên Mụ nằm bên bờ sông Hương và được xây dựng năm 1601 dưới thời chúa Nguyễn Hoàng. Tháp Phước Duyên 7 tầng của chùa là biểu tượng nổi tiếng của Huế."
+},
+
+{
+q:"Món ăn nào sau đây là đặc sản nổi tiếng của Huế?",
+a:["Phở","Bún bò Huế","Cơm gà","Bún chả"],
+correct:1,
+info:"<img src='cauhoi/bunbohue.jpg' class='quiz-img'><br>Bún bò Huế là món ăn nổi tiếng của cố đô Huế với nước dùng đậm đà, thơm mùi sả và ruốc Huế."
+},
+
+{
+q:"'Chợ quê ngày hội' thường được tổ chức tại địa điểm nào ở TP Huế?",
+a:["Cầu ngói Thanh Toàn","Chợ Đông Ba","Đại Nội Huế","Núi Ngự Bình"],
+correct:0,
+info:"<img src='cauhoi/thanh-toan.jpg' class='quiz-img'><br>'Chợ quê ngày hội' được tổ chức tại Cầu ngói Thanh Toàn, nơi tái hiện sinh hoạt làng quê Huế xưa."
+},
+
+{
+q:"Chợ nổi tiếng và lâu đời ở Huế là chợ nào?",
+a:["Chợ Hàn","Chợ Bến Thành","Chợ Đồng Xuân","Chợ Đông Ba"],
+correct:3,
+info:"<img src='cauhoi/dongba.jpg' class='quiz-img'><br>Chợ Đông Ba là khu chợ lớn và nổi tiếng nhất ở Huế, nằm gần sông Hương và cầu Trường Tiền."
+},
+
+{
+q:"Ai là vị đại thần nổi tiếng đã phò vua Hàm Nghi phát động phong trào Cần Vương?",
+a:["Tôn Thất Thuyết","Nguyễn Tri Phương","Phan Bội Châu","Trương Định"],
+correct:0,
+info:"<img src='cauhoi/tonthatthuyet.jpg' class='quiz-img'><br>Tôn Thất Thuyết là vị đại thần trung thành của triều Nguyễn. Năm 1885 ông đưa vua Hàm Nghi rời kinh thành Huế để phát động phong trào Cần Vương."
+},
+
+{
+q:"Di sản văn hóa phi vật thể nào của Huế được UNESCO công nhận năm 2003?",
+a:["Quan họ Bắc Ninh","Nhã nhạc cung đình Huế","Đờn ca tài tử","Hát xoan"],
+correct:1,
+info:"<img src='cauhoi/nhanhac.jpg' class='quiz-img'><br>Nhã nhạc cung đình Huế là loại âm nhạc trang trọng được biểu diễn trong các lễ lớn của triều Nguyễn."
+},
+
+{
+q:"Làng nghề nổi tiếng làm nón lá ở phường Thanh Thủy, TP Huế là làng nào?",
+a:["Tây Hồ","Bát Tràng","Vạn Phúc","Vân Thê"],
+correct:3,
+info:"<img src='cauhoi/nonla.jpg' class='quiz-img'><br>Làng nón lá Vân Thê là làng nghề truyền thống lâu đời của Huế, nổi tiếng với nón lá và nón bài thơ."
+},
+
+{
+q:"Cây cầu nổi tiếng bắc qua sông Hương là cầu nào?",
+a:["Cầu Trường Tiền","Cầu Long Biên","Cầu Rồng","Cầu Nhật Tân"],
+correct:0,
+info:"<img src='cauhoi/truongtien.jpg' class='quiz-img'><br>Cầu Trường Tiền bắc qua sông Hương ngay trung tâm Huế và là biểu tượng quen thuộc của cố đô."
+}
+
+]
+
+function loadQuestion(){
+
+answered = false
+
+let q = questions[current]
+
+document.getElementById("question").innerHTML =
+"Câu " + (current+1) + ": " + q.q
+
+for(let i=0;i<4;i++){
+
+let btn = document.getElementById("btn"+i)
+
+btn.innerHTML = ["A. ","B. ","C. ","D. "][i] + q.a[i]
+
+btn.classList.remove("correct","wrong")
+
+btn.disabled = false
+
+}
+
+document.getElementById("quiz-info").style.display = "none"
+
+document.getElementById("nextBtn").style.display = "none"
+
+}
+
+function checkAnswer(i){
+
+if(answered) return
+
+answered = true
+
+let q = questions[current]
+
+for(let j=0;j<4;j++){
+document.getElementById("btn"+j).disabled = true
+}
+
+if(i == q.correct){
+
+score++
+
+document.getElementById("btn"+i).classList.add("correct")
+
+document.getElementById("soundCorrect").play()
+
+fireworks()
+
+}else{
+
+document.getElementById("btn"+i).classList.add("wrong")
+
+document.getElementById("btn"+q.correct).classList.add("correct")
+
+document.getElementById("soundWrong").play()
+
+}
+
+document.getElementById("quiz-info").style.display = "block"
+
+document.getElementById("quiz-info").innerHTML = q.info
+
+document.getElementById("nextBtn").style.display = "inline-block"
+
+}
+
+function nextQuestion(){
+
+current++
+
+if(current >= questions.length){
+
+document.querySelector(".quiz-box").style.display = "none"
+
+document.getElementById("quiz-result").style.display = "block"
+
+document.getElementById("score-text").innerText =
+"Bạn trả lời đúng " + score + " / " + questions.length + " câu"
+
+return
+
+}
+
+loadQuestion()
+
+document.querySelector(".hue-section")
+.scrollIntoView({behavior:"smooth"})
+
+}
+
+function restartQuiz(){
+
+current = 0
+
+score = 0
+
+document.querySelector(".quiz-box").style.display = "block"
+
+document.getElementById("quiz-result").style.display = "none"
+
+loadQuestion()
+
+window.scrollTo({
+top: document.querySelector(".hue-section").offsetTop - 40,
+behavior:"smooth"
+})
+
+}
+
+function fireworks(){
+
+let canvas = document.getElementById("fireworks")
+
+let ctx = canvas.getContext("2d")
+
+canvas.width = window.innerWidth
+
+canvas.height = window.innerHeight
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+for(let i=0;i<80;i++){
+
+let x = Math.random()*canvas.width
+
+let y = Math.random()*canvas.height
+
+ctx.beginPath()
+
+ctx.arc(x,y,3,0,6.28)
+
+ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,50%)"
+
+ctx.fill()
+
+}
+
+setTimeout(()=>{
+ctx.clearRect(0,0,canvas.width,canvas.height)
+},500)
+
+}
+
+loadQuestion()
+
+</script><script src="search.js"></script>
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khám phá Thành phố Huế</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#eef3ff;
+}
+
+  .menu{
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:15px 20px;
+    margin:0;
+}
+
+ .search-box{
+    position:relative;
+}
+
+#suggestions{
+    position:absolute;
+    top:100%;      
+    left:0;
+    margin-top:5px;  
+    width:100%;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.15);
+    display:none;
+    z-index:1000;
+}
+.search-item{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+}
+
+ 
+.search-box input{
+    width:160px;
+    height:32px;
+    padding:0 12px;
+    border-radius:16px;
+    border:2px solid #0a3d91;
+    outline:none;
+    font-size:14px;
+}
+
+ 
+
+.suggestion-item{
+    padding:8px 10px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.suggestion-item:hover{
+    background:#eef3ff;
+}
+header{
+    height:220px;
+    background-size:cover;
+    background-position:center;
+    animation: headerSlide 10s infinite;
+}
+
+@keyframes headerSlide{
+    0%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("hue1.jpg");
+    }
+    50%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("hue2.jpg");
+    }
+    100%{
+        background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("abs.jpg");
+    }
+}
+
+.top_bar{
+    max-width:1200px;
+    height:220px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.logo img{
+    height:85px;
+}
+
+.site_name{
+    color:white;
+    font-size:32px;
+    text-align: center;
+    font-weight:600;
+}
+
+.site_name a{
+    color:white;
+    text-decoration:none;
+}
+
+ 
+.sidebar{
+    width:100%;
+    background:white;
+    border-bottom:3px solid #0a3d91;
+}
+
+.sidebar ul{
+    list-style:none;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    padding:15px 0;
+    margin:0;
+}
+
+.sidebar a{
+    text-decoration:none;
+    font-weight:600;
+    color:#0a3d91;
+    font-size:18px;
+    padding:6px 12px;
+    border-radius:4px;
+    transition:0.2s;
+}
+
+.sidebar a:hover{
+    background:#0a3d91;
+    color:white;
+}
+
+ 
+.hue-section{
+    max-width:1100px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:36px;
+    color:#0a3d91;
+    margin-bottom:40px;
+    font-weight:bold;
+}
+
+ 
+.resource-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap:30px;
+}
+
+.resource-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.resource-card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.resource-card h3{
+    margin:16px;
+    color:#0a3d91;
+}
+
+.resource-card p{
+    margin:0 16px 20px;
+    color:#444;
+    line-height:1.5;
+}
+
+.resource-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+ 
+footer{
+    background:#0b1c3d;
+    color:#ddd;
+    text-align:center;
+    padding:20px 10px;
+    margin-top:60px;
+}
+
+footer p{
+    margin:6px 0;
+}
+
+ 
+@media(max-width:600px){
+    .top_bar{
+        padding:0 20px;
+    }
+    .site_name{
+        font-size:20px;
+        text-align:right;
+    }
+}
+.intro-hue{
+    max-width:1100px;
+    margin:70px auto;
+    padding:0 20px;
+}
+
+.intro-container{
+    display:flex;
+    align-items:center;
+    gap:50px;
+    background:white;
+    padding:40px;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.intro-text{
+    flex:1;
+}
+
+.intro-text h2{
+    font-size:32px;
+    color:#0a3d91;
+    margin-bottom:20px;
+}
+
+.intro-text p{
+    font-size:18px;
+    line-height:1.8;
+    color:#444;
+    margin-bottom:16px;
+}
+
+.intro-image{
+    flex:1;
+}
+.section-title{
+    text-align: center;
+}   
+.intro-image img{
+    width:100%;
+    border-radius:12px;
+    object-fit:cover;
+}
+
+.map-section{
+    max-width:1000px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.map-section h2{
+    text-align:center;
+    font-size:32px;
+    color:#0a3d91;
+    margin-bottom:30px;
+}
+
+.map-container{
+    text-align:center;
+}
+
+.map-container img{
+    width:100%;
+    max-width:800px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+.map-section{
+    max-width:1000px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.map-section h2{
+    text-align:center;
+    font-size:32px;
+    color:#0a3d91;
+    margin-bottom:30px;
+}
+
+.map-container img{
+    width:100%;
+    max-width:800px;
+    display:block;
+    margin:auto;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.ward-title{
+    margin-top:50px;
+    text-align:center;
+    color:#0a3d91;
+}
+
+.ward-list{
+    text-align:center;
+    margin:20px 0;
+}
+
+.ward-list button{
+    margin:8px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#0a3d91;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.ward-list button:hover{
+    background:#062c6f;
+}
+
+.ward-map{
+    display:none;
+    text-align:center;
+    margin-top:20px;
+}
+
+.ward-map img{
+    width:100%;
+    max-width:700px;
+    border-radius:10px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+.map-content{
+    margin-top:30px;
+    font-size:18px;
+    line-height:1.7;
+    color:#444;
+}
+@media(max-width:900px){
+    .intro-container{
+        flex-direction:column;
+    }
+}
+.book-wrapper{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top:40px;
+}
+
+.book{
+    width:800px;
+    height:500px;
+    position:relative;
+    perspective:2500px;
+}
+
+.page{
+    width:100%;
+    height:100%;
+    position:absolute;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    transform-origin:left;
+    transition:transform 1s;
+    backface-visibility:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.page img{
+    max-width:90%;
+    max-height:70%;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.page h3{
+    margin-top:20px;
+    color:#0a3d91;
+}
+
+.page.flipped{
+    transform:rotateY(-180deg);
+}
+
+.book-controls{
+    margin-top:25px;
+}
+
+.book-controls button{
+    padding:10px 25px;
+    margin:0 10px;
+    border:none;
+    background:#0a3d91;
+    color:white;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.book-controls button:hover{
+    background:#062c6f;
+}
+
+@media(max-width:900px){
+    .book{
+        width:95%;
+        height:420px;
+    }
+}
+.container3{
+    width:100%;
+    display:flex;
+    justify-content:center;   
+    align-items:center;      
+    padding:60px 0;
+    background-color:whitesmoke;
+}
+
+.container3 img{
+    max-width:900px;
+    width:90%;
+    border-radius:12px;
+    object-fit:cover;
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+    border: 5px solid yellow;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="top_bar">
+        <div class="site_name">
+            <a href="#">Khám phá Thành phố Huế</a>
+        </div>
+    </div>
+</header>
+
+<aside class="sidebar">
+    <ul>
+        <li><a href="position.html">Vị trí</a></li>
+        <li><a href="introduction.html">Giới thiệu</a></li> <li><a href="code.html">Khám phá</a></li>
+        
+        <li><a href="tourism.html">Lịch sử</a></li>
+        <li><a href="resource.html">Tài nguyên</a></li>
+        <li><div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm toàn website..." autocomplete="off">
+    <div id="suggestions"></div>
+</div></li>
+    </ul>
+</aside>
+ 
+  <div class="container3"> 
+ <img src="alternativemap.png">
+ </div>
+
+<footer>
+    <p>© 2026 Khám phá Thành phố Huế</p>
+    <p>Đơn vị: Trường Tiểu học Thanh Toàn</p>
+    <p>Chế Nguyễn Minh Khuê - lớp 5/2; Trần Đặng Châu Anh - lớp 1/1</p>
+    <!-- <p></p> -->
+    <p>Giáo viên hướng dẫn: Lương Thị Phương Linh - Huỳnh Thị Bích Mai</p>
+</footer>
+<script>
+function showWard(id){
+    const maps = document.querySelectorAll('.ward-map');
+    maps.forEach(map => map.style.display = 'none');
+
+    document.getElementById(id).style.display = 'block';
+}
+</script><script src="search.js"></script>
+</body>
+</html>
